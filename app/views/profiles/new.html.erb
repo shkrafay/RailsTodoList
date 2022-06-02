@@ -1,0 +1,63 @@
+<p><%#= @profile.errors.any? ? @profile.errors.map(&:full_message).to_sentence : '' %></p>
+<div class="container">
+	<% if @profile.errors.any? %>
+	<div class="alert alert-warning" role="alert">
+		<p><%= pluralize(@profile.errors.count, "error") %> prohibited this Profile from being saved:</p>
+		<ul>
+			<% @profile.errors.each do |error| %>
+				<li><%= error.full_message %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+
+
+	<%
+puts "Checking tag!"
+
+%>
+
+
+	<%= form_with model: @profile do |person_form| %>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<%= person_form.label :email %>
+			<%= person_form.email_field :email,  class: "form-control" %> 
+		</div>
+		<div class="form-group col-md-6">
+			<%= person_form.label :name %>
+			<%= person_form.text_field :name,  class: "form-control" %> 
+		</div>
+	</div>
+	<div class="form-group">
+		<%= person_form.label :address %>
+		<%= person_form.text_area :address,  class: "form-control", placeholder: "1234 Gulberg" %> 
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<%= person_form.label :city %>
+			<%= person_form.text_field :city,  class: "form-control" %> 
+		</div>
+		<div class="form-group col-md-4">
+			<%= person_form.label :state %>		
+			<%= person_form.select :state, ["Punjab", "Sindh", "Balochistan", "KPK"], {},  {class: 'form-control'}  %>
+		</div>
+
+		<div class="form-group col-md-2">
+			<%= person_form.label :zipCode %>
+			<%= person_form.text_field :zip,  class: "form-control" %> 
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="form-check">
+			<%= person_form.check_box :agreed , class: "form-check-input"%>
+			<label class="form-check-label">
+				<%= person_form.label :agreed %> to terms & conditions </label>
+		</div>
+	</div>
+	<p>
+		<%= person_form.submit "Sign Up", class: "btn btn-success btn-sm"  %>
+	</p>
+	<% end %>
+
+</div>

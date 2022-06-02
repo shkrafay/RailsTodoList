@@ -1,0 +1,72 @@
+<div class="container">
+	<h2>To Do List</h2>
+	<br> 
+	<div class="row">
+		<div class="col-2"></div>
+		<div class="col-4">
+			<h5>
+				<strong>Name:</strong>
+				<%= @list.name %>
+			</h5>
+		</div>
+		<div class="col-4">
+			<h5>
+				<strong>Date:</strong>
+				<%= @list.date %>
+			</h5>
+		</div>
+		<div class="col-2"></div>
+	</div>
+	<br><br>
+	<div class="row">
+		<div class="col-7">
+			<h3 style="text-decoration: underline;">Tasks</h2>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Title</th>
+							<th scope="col">Details</th>
+							<th scope="col">Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @list.tasks.each_with_index do |task, index| %>
+						<tr>
+							<th scope="row"><%= index+1 %></th>
+							<td><%= task.title %></td>
+							<td><%= task.body %></td>
+							<td><%= link_to 'Delete', [task.list, task],
+							method: :delete,
+							data: { confirm: 'Are you sure?' } %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				
+			</div>
+			<div class="col-1"></div>
+			<div class="col-4">
+				<h2>Add a Task:</h2>
+				<%= form_with(model: [ @list, @list.tasks.build ], local: true) do |form| %>
+				<div class="form-group">
+					<label for="title"><%= form.label :title %></label>
+					<%= form.text_field :title,  :class => "form-control" %> 
+					<small id="title" class="form-text text-muted">Required, at least 5 characters.</small>
+				</div>
+				<div class="form-group">
+					<label for="body"><%= form.label :body %></label> <br>
+					<%= form.text_area :body,  :class => "form-control" %> 
+				</div>
+				<p>
+					<%= form.submit %>
+				</p>
+				<% end %>
+			</div>
+		</div>
+		<br><br>
+		<%= link_to 'Edit', edit_list_path(@list) %> |
+		<%= link_to 'Back', lists_path %>
+	</div>
+
+

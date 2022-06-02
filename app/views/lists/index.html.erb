@@ -1,0 +1,29 @@
+<div class="container">
+	<h1>To Do Lists</h1>
+	<br>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Date</th>
+				<th scope="col">Details</th>
+				<th scope="col">Edit</th>
+				<th scope="col">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @lists.each_with_index do |list, index| %>
+			<tr>
+				<th scope="row"><%= index+1%></th>
+				<td><%= list.name %></td>
+				<td><%= list.date %></td>
+				<td><%= link_to 'Show', list_path(list) %></td>
+				<td><%= link_to 'Edit', edit_list_path(list) %></td>
+				<td><%= link_to 'Destroy', list_path(list),
+				data: {confirm: 'Are you sure?',"turbo-method": :delete } %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
